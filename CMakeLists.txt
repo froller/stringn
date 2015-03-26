@@ -28,5 +28,5 @@ install(
 )
 install(
     FILES ${HEADERS}
-    DESTINATION include
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
