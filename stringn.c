@@ -149,3 +149,37 @@ wchar_t * itow(
     return ltow(value, str, radix);
 }
 
+size_t chrlen(
+    const char *c) /* [I] Pointer to multibyte char */
+{
+  size_t l;
+  for (l = 0; (*c & (0x80 >> l)) && l < 8; l++);
+  l &= 0x07;
+  switch (l)
+  {
+    case 0:
+      return 1;
+    default:
+      return l;
+  }
+}
+
+int asciisanitize(
+    char *str) /* [IO] String to cut multi-byte chars from */
+{
+  char *s, *d;
+  s = d = str;
+  const char *b = s + strlen(s);
+  while (*s)
+  {
+    size_t l = chrlen(s);
+    if (l > 1)
+      s += l;
+    else
+      *(d++) = *(s++);
+    if (d > b || s > b)
+      return -1;
+  }
+  *d = 0;
+  return 0;
+}

@@ -11,4 +11,7 @@ char * ltoa(long, char *, int);
 wchar_t * itow(int, wchar_t *, int);
 wchar_t * ltow(long, wchar_t *, int);
 
+int asciisanitize(char *);
+size_t chrlen(const char *c);
+
 #endif
